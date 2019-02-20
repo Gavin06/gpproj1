@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -5,21 +6,33 @@
  * Date: 2019-02-18
  * Time: 21:13
  */
-
-main::start();
+main::start("myfile.csv");
 
 class main {
 
-    static public function start() {
+    static public function start($filename) {
 
-        $file = fopen("myfile.csv", "r");
+    $records = csv::getRecords($filename);
 
-        while (! feof($file))
-        {
-
-            print_r(fgetcsv($file));
-        }
-        fclose($file);
+    print_r($records);
+    }
     }
 
+    class csv {
+
+    static public function getrecords($filename){
+
+            $file = fopen($filename, "r");
+
+        while(! feof($file))
+        {
+
+        $record = fgetcsv($file);
+
+        $records[] = $record;
+    }
+
+    fclose($file);
+        return $records;
+    }
 }
