@@ -14,9 +14,15 @@ class main {
 
     $records = csv::getRecords($filename);
 
+        foreach ($records as $record) {
+        $array = $record->returnArray();
+        print_r($array);
+
+        }
+    }
 
     }
- }
+
 
  class csv {
 
@@ -59,11 +65,11 @@ class record {
             $this->createProperty($property, $value);
 
         }
+    }
 
-
-        print_r($this);
-
-
+    public function returnArray(){
+        $array = (array) $this;
+        return $array;
     }
 
     public function createProperty($name = 'first', $value = 'Gavin'){
