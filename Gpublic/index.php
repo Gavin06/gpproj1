@@ -13,20 +13,42 @@ class main {
     static public function start($filename) {
 
     $records = csv::getRecords($filename);
+    $table = html::generateTable($records);
 
-        foreach ($records as $record) {
-        $array = $record->returnArray();
-        print_r($array);
 
         }
     }
 
+
+class html {
+    public static function tableRow ($row){
+        $html = "<tr> $row </tr>";
+        return $html;
+
     }
+    public static function generateTable($records) {
+
+        echo "<html><body><table>\n\n";
+        $f = fopen("myfile.csv", "r");
+        while (($line = fgetcsv($f)) !== false) {
+            echo "<tr>";
+            foreach ($line as $cell) {
+                echo "<td>" . htmlspecialchars($cell) . "</td>";
+            }
+            echo "</tr>\n";
+        }
+        fclose($f);
+        echo "\n</table></body></html>";
+
+ }
+
+  }
+
 
 
  class csv {
 
-    static public function getrecords($filename){
+    static public function getRecords($filename){
 
             $file = fopen($filename, "r");
 
